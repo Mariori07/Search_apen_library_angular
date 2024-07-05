@@ -1,0 +1,86 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+<main class="content">
+
+  <section class="content__main" *ngIf="book">
+    <div class="content__container">
+
+      <div class="content__info container content__info--main">
+        <img *ngIf="book.covers?.length"
+             [src]="getCoverImageUrl(book.covers[0])"
+             [alt]="book.title"
+             appImgMissingDirective>
+
+        <div class="content__data">
+          <h2>{{ book.title }}</h2>
+          <h4>Authors</h4>
+          <p [innerHTML]="getAuthorsList(book.authors)"></p>
+          <div *ngIf="book.created">
+            <h4>Publish Date</h4>
+            <p>{{ book.created?.value | date:'yyyy-MM-dd' }}</p>
+          </div>
+          <h4>Description</h4>
+          <p>{{ book.description?.value }}</p>
+        </div>
+      </div>
+
+      <div class="content__info container content__data">
+
+        <h4 *ngIf="book.subjects?.length > 0">Subjects</h4>
+        <div class="content__data--categories" *ngIf="book.subjects?.length > 0">
+          <button *ngFor="let subject of book.subjects" mat-raised-button color="primary" aria-label="Subjects" disabled>{{ subject }}</button>
+        </div>
+  
+        <h4 *ngIf="book.subject_places?.length > 0">Places</h4>
+        <div class="content__data--categories" *ngIf="book.subject_places?.length > 0">
+          <button *ngFor="let place of book.subject_places" mat-raised-button color="primary" aria-label="Places" disabled>{{ place }}</button>
+        </div>
+  
+        <h4 *ngIf="book.subject_times?.length > 0">Times</h4>
+        <div class="content__data--categories" *ngIf="book.subject_times?.length > 0">
+          <button *ngFor="let time of book.subject_times" mat-raised-button color="primary" aria-label="Times" disabled>{{ time }}</button>
+        </div>
+  
+        <h4 *ngIf="book.subject_people?.length > 0">People</h4>
+        <div class="content__data--categories" *ngIf="book.subject_people?.length > 0">
+          <button *ngFor="let person of book.subject_people" mat-raised-button color="primary" aria-label="People" disabled>{{ person }}</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Mobile data  -->
+  <section class="content__data-mobile" *ngIf="book">
+    <h2>{{ book.title }}</h2>
+
+    <h4>Description</h4>
+    <p>{{ book.description?.value }}</p>
+
+    <h4>Authors</h4>
+    <div *ngFor="let author of book.authors">
+      <p>{{ authorNames[author.author.key] }}</p>
+    </div>
+
+    <h4>Subjects</h4>
+    <div class="content__data--categories">
+      <button *ngFor="let subject of book.subjects" mat-raised-button color="primary" aria-label="Subjects" disabled>{{ subject }}</button>
+    </div>
+
+    <h4>Places</h4>
+    <div class="content__data--categories">
+      <button *ngFor="let place of book.subject_places" mat-raised-button color="primary" aria-label="Places" disabled>{{ place }}</button>
+    </div>
+
+    <h4>Times</h4>
+    <div class="content__data--categories">
+      <button *ngFor="let time of book.subject_times" mat-raised-button color="primary" aria-label="Times" disabled>{{ time }}</button>
+    </div>
+
+    <h4>People</h4>
+    <div class="content__data--categories">
+      <button *ngFor="let person of book.subject_people" mat-raised-button color="primary" aria-label="People" disabled>{{ person }}</button>
+    </div>
+  </section>
+
+</main>

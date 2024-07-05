@@ -1,0 +1,94 @@
+<section class="home-main-content">
+  Libreria
+</section>
+
+<div class="container">
+
+  <section class="shows__container">
+
+    <h2 class="shows__title" title="Go to TV Shows">
+      <a [routerLink]="'/tv-shows'" class="colored-background-before">
+        <mat-icon>book</mat-icon>
+        Arts
+      </a>
+    </h2>
+
+    @defer {
+      <mat-tab-group (selectedTabChange)="tabBookByThemeChange($event)" [selectedIndex]="selectedTVTab" mat-align-tabs="end">
+
+        @for (tab of artTabList; track tab) {
+          <mat-tab [label]="tab">
+            <swiper-container appSwiper [config]="config" pagination="true" scrollbar="false">
+              <swiper-slide *ngFor="let tvShow of animalList | slice:0:15">
+                <app-poster-card [model]="tvShow"></app-poster-card>
+              </swiper-slide>
+            </swiper-container>
+          </mat-tab>
+        } @empty {
+          Empty list
+        }
+
+      </mat-tab-group>
+    }
+
+  </section>
+
+  <section class="shows__container">
+
+    <h2 class="shows__title" title="Go to TV Shows">
+      <a [routerLink]="'/tv-shows'" class="colored-background-before">
+        <mat-icon>book</mat-icon>
+        Animals
+      </a>
+    </h2>
+
+    @defer {
+      <mat-tab-group (selectedTabChange)="tabAnimalChange($event)" [selectedIndex]="selectedArtTab" mat-align-tabs="end">
+
+        @for (tab of animalTabList; track tab) {
+          <mat-tab [label]="tab">
+            <swiper-container appSwiper [config]="config" pagination="true" scrollbar="false">
+              <swiper-slide *ngFor="let tvShow of artList | slice:0:15">
+                <app-poster-card [model]="tvShow"></app-poster-card>
+              </swiper-slide>
+            </swiper-container>
+          </mat-tab>
+        } @empty {
+          Empty list
+        }
+
+      </mat-tab-group>
+    }
+
+  </section>
+  
+  <section class="shows__container">
+
+    <h2 class="shows__title" title="Go to TV Shows">
+      <a [routerLink]="'/tv-shows'" class="colored-background-before">
+        <mat-icon>book</mat-icon>
+        Science & Mathematics
+      </a>
+    </h2>
+
+    @defer {
+      <mat-tab-group (selectedTabChange)="tabScienceMathematicChange($event)" [selectedIndex]="selectedScienceMathematicTab" mat-align-tabs="end">
+
+        @for (tab of scienceMathematicTabList; track tab) {
+          <mat-tab [label]="tab">
+            <swiper-container appSwiper [config]="config" pagination="true" scrollbar="false">
+              <swiper-slide *ngFor="let tvShow of scienceMathematicList | slice:0:15">
+                <app-poster-card [model]="tvShow"></app-poster-card>
+              </swiper-slide>
+            </swiper-container>
+          </mat-tab>
+        } @empty {
+          Empty list
+        }
+
+      </mat-tab-group>
+    }
+
+  </section>
+
+</div>

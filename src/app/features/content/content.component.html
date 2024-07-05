@@ -1,0 +1,71 @@
+<main class="contents container">
+  <h2>All {{ contentType | titlecase }}</h2>
+  <div class="contents__container">
+    <mat-card class="contents__filter">
+      <div>Filter by</div>
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Title</mat-label>
+        <!-- <input matInput placeholder="Enter title to filter" (input)="applyFilter($event.target.value)"> -->
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Author</mat-label>
+        <input matInput placeholder="Enter author to filter" [(ngModel)]="author">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by ISBN</mat-label>
+        <input matInput placeholder="Enter ISBN to filter" [(ngModel)]="isbn">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Subject</mat-label>
+        <input matInput placeholder="Enter subject to filter" [(ngModel)]="subject">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Place</mat-label>
+        <input matInput placeholder="Enter place to filter" [(ngModel)]="place">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Person</mat-label>
+        <input matInput placeholder="Enter person to filter" [(ngModel)]="person">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Publisher</mat-label>
+        <input matInput placeholder="Enter publisher to filter" [(ngModel)]="publisher">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="search()">Search</button>
+    </mat-card>
+    <div class="contents__right-side">
+      <div class="contents__list">
+        <h1>{{ Libro?.title }}</h1> 
+          <img  class="poster__image" loading="lazy" [src]="getImageUrl(Libro?.key)"
+               srcset="{{ getImageUrl(Libro?.key) }} 1x, {{ getImageUrl(Libro?.key) }} 2x"
+               [alt]="Libro?.title" appImgMissingDirective
+               height="239" width="159">
+
+        <div *ngFor="let model of books">
+          
+          <div class="poster">
+            <a [routerLink]="'/book/' + model.key" [title]="'Go to ' + (model.title)">
+              <img  class="poster__image" loading="lazy" [ngSrc]="getImageUrl(model.key)"
+                   srcset="{{ getImageUrl(model.key) }} 1x, {{ getImageUrl(model.key) }} 2x"
+                   [alt]="model.title" appImgMissingDirective
+                   height="239" width="159">
+            </a>
+            <div class="poster__content">
+              <a 
+                 [routerLink]="'/books/' + model.key"
+                 [title]="model.title"
+                 class="poster__title colored-hover">
+                {{ model.title}}
+              </a>
+              <p *ngIf="model.publish_date">
+                {{ model.publish_date | date }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-paginator [length]="totalResults" [pageSize]="pageSize" (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</main>
